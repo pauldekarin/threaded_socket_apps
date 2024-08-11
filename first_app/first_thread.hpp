@@ -8,11 +8,13 @@
 #include <regex>
 #include <chrono>
 #include <sys/select.h>
+#include <memory>
 
 #include "../utilities/buffer.hpp"
 #include "../utilities/controller.hpp"
 #include "../utilities/logger.hpp"
 #include "../utilities/observer.hpp"
+
 #define MAX_SIZE 64
 
 class FirstThread : public Observer{

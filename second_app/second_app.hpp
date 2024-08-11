@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 #include <unistd.h>
 
 #include "../utilities/controller.hpp"

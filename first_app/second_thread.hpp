@@ -12,6 +12,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <memory>
 
 #include "../utilities/buffer.hpp"
 #include "../utilities/controller.hpp"

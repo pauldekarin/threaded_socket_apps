@@ -4,6 +4,7 @@
 #include <atomic>
 #include <vector>
 #include <csignal>
+#include <memory>
 
 #include "logger.hpp"
 #include "observer.hpp"
