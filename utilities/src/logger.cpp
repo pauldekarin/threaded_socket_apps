@@ -7,6 +7,6 @@ namespace logger{
                   << msg << std::endl;
     }
     #else
-    void cout(std::string msg){}
+    void cout(const std::string &sender, const std::string &msg){}
     #endif
 }

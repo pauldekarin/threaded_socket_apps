@@ -21,7 +21,6 @@ all:build
 # Сборка исполняемого файла из объектных файлов
 .PHONY:build
 build:$(OUTPUT)
-	$(CC) $(CFLAGS) $(OBJS) -o $(BUILD_DIR)/$(OUTPUT)
 
 #Сборка исполняемого файла в отладочном режиме
 .PHONY:build_debug
