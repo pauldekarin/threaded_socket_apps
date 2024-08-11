@@ -14,7 +14,7 @@ StateController::~StateController(){
 }
 
 void StateController::stop_all_observers(){
-    logger::cout("=== STATE CONTROLLER notify observers to stop working ===");
+    logger::cout("STATE CONTROLLER","notify observers to stop working ");
     for(std::shared_ptr<Observer> observer : this->observers){
         observer->stop();
     }
@@ -26,6 +26,6 @@ void StateController::insert_observer(std::shared_ptr<Observer> observer){
 }
 
 void StateController::catch_sigint(int signum){
-    logger::cout("=== STATE CONTROLLER catch Ctrl + C");
+    logger::cout("STATE CONTROLLER","catch Ctrl + C");
     instance->stop_all_observers();
 }

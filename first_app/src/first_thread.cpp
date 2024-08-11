@@ -1,35 +1,35 @@
-#include "../first_thread.hpp"
+#include"../first_thread.hpp"
 
 FirstThread::FirstThread(std::shared_ptr<Buffer> buffer):
     buffer(buffer){
 
 }
 FirstThread::~FirstThread(){
-
+    this->stop();
 }
 
 void FirstThread::exec(){
-    logger::cout("=== THREAD №1 run ===");
+    logger::cout("THREAD №1","run");
     while(this->is_running.load(std::memory_order_relaxed)){
 
         if(user_input_something()){
-            logger::cout("=== THREAD №1 get user input ===");
+            logger::cout("THREAD №1","get user input");
             std::string user_input;
             std::getline(std::cin, user_input);
 
-            logger::cout("=== THREAD №1 validate user input ===");
+            logger::cout("THREAD №1","validate user input");
             if(validate_user_input(user_input)){
-                logger::cout("=== THREAD №1 process user input ===");
+                logger::cout("THREAD №1","process user input");
                 process_user_input(user_input);
 
-                logger::cout("=== THREAD №1 set user input ===");
+                logger::cout("THREAD №1","set user input");
                 buffer->set(user_input);
             }else{
-                logger::cout("=== THREAD №1 incorrect user input ===");
+                logger::cout("THREAD №1","incorrect user input");
             }
         }
     }
-    logger::cout("=== THREAD №1 exit ===");
+    logger::cout("THREAD №1","exit");
 }
 
 bool FirstThread::validate_user_input(const std::string &user_input){
@@ -41,7 +41,7 @@ void FirstThread::sort_user_input(std::string &user_input){
     std::sort(user_input.rbegin(), user_input.rend());
 }
 void FirstThread::replace_even_elements_user_input(std::string &user_input){
-    user_input = std::regex_replace(user_input, std::regex("[02468]"), "KB");
+    user_input = std::regex_replace(user_input, std::regex("[02468]"),"KB");
 }
 
 void FirstThread::process_user_input(std::string &user_input){
@@ -63,5 +63,6 @@ bool FirstThread::user_input_something(){
 }   
 
 void FirstThread::stop(){
+    if(!this->is_running.load(std::memory_order_relaxed)) return;
     this->is_running.store(false, std::memory_order_relaxed);
 }

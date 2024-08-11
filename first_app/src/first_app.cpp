@@ -7,7 +7,12 @@ FirstApp::FirstApp(){
     this->controller->insert_observer(this->buffer);
 }
 FirstApp::~FirstApp(){
+    this->stop();
+}
 
+void FirstApp::stop(){
+    if(!this->is_running) return;
+    this->is_running = false;
 }
 
 void FirstApp::exec(){
@@ -26,10 +31,10 @@ void FirstApp::exec(){
 
 
 int main(){
-    logger::cout("Starting Application №1");
+    logger::cout("Application №1", "Starting");
 
     FirstApp app = FirstApp();
     app.exec();
 
-    logger::cout("Closing Application №1");
+    logger::cout("Application №1", "Closing");
 }

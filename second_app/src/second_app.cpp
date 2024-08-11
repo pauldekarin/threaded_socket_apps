@@ -16,31 +16,32 @@ void SecondApp::init(){
 }
 
 void SecondApp::stop(){
+    if(!this->is_running) return;
     this->is_running = false;
 }
 
 void SecondApp::exec(){
-    logger::cout("SECOND APP starts");
+    logger::cout("SECOND APP","starts");
     while(true){
-        logger::cout("SECOND APP waiting message");
+        logger::cout("SECOND APP","waiting message");
         std::string msg = this->listener->listen();
 
         if(!this->is_running) break;
 
-        logger::cout("SECOND APP received message");
+        logger::cout("SECOND APP","received message");
         this->writer.write(msg);
     }
-    logger::cout("SECOND APP stop");
+    logger::cout("SECOND APP","stop");
 }
 
 
 
 int main(){
-    logger::cout("APPLICATION №2 starts");
+    logger::cout("APPLICATION №2" ,"Starts");
     std::shared_ptr<SecondApp> app = std::make_shared<SecondApp>();
     app->init();
     app->exec();
 
-    logger::cout("APPLICATION №2 exit");
+    logger::cout("APPLICATION №2", "Exit");
     exit(EXIT_SUCCESS);
 }

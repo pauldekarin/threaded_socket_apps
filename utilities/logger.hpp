@@ -5,7 +5,7 @@
 #include <string>
 
 namespace logger{
-    void cout(std::string msg);
+    void cout(const std::string &sender, const std::string &msg);
 }
 
 #endif

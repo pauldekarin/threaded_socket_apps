@@ -1,27 +1,27 @@
-#include "../second_thread.hpp"
+#include"../second_thread.hpp"
 
 SecondThread::SecondThread(std::shared_ptr<Buffer> buffer):buffer(buffer){
 
 }
 SecondThread::~SecondThread(){
-
+    this->stop();
 }
 
 void SecondThread::exec(){
-    logger::cout("=== THREAD №2 run ===");
+    logger::cout("THREAD №2","run");
     while(true){
-        logger::cout("=== THREAD №2 waiting user input ===");
+        logger::cout("THREAD №2","waiting user input");
         std::string user_input = buffer->get();
 
         if(!this->is_running.load(std::memory_order_relaxed)) break;
         
-        logger::cout("=== THREAD №2 received user input ===");
+        logger::cout("THREAD №2","received user input");
         std::cout << user_input << std::endl;
         
-        logger::cout("=== THREAD №2 send user input ===");
+        logger::cout("THREAD №2","send user input");
         this->send_to_second_app(sum_digits(user_input));
     }
-    logger::cout("=== THREAD №2 exit ===");
+    logger::cout("THREAD №2","exit");
 }
 
 void SecondThread::send_to_second_app(int sum){
@@ -49,5 +49,6 @@ int SecondThread::sum_digits(const std::string &user_input){
 }
 
 void SecondThread::stop(){
+    if(!this->is_running.load(std::memory_order_relaxed)) return;
     this->is_running.store(false, std::memory_order_relaxed);
 }
