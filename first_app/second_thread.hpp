@@ -19,6 +19,7 @@
 #include "../utilities/controller.hpp"
 #include "../utilities/logger.hpp"
 #include "../utilities/observer.hpp"
+#include "../utilities/globals.hpp"
 
 class SecondThread : public Observer{
     public:

@@ -28,10 +28,14 @@ void SecondThread::send_to_second_app(int sum){
     std::string data = std::to_string(sum);
 
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    int opt = 1;
+    if(setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0){
+        return;
+    }
     struct sockaddr_in sock_in;
     sock_in.sin_addr.s_addr = inet_addr("127.0.0.1");
     sock_in.sin_family = AF_INET;
-    sock_in.sin_port = htons(8080);
+    sock_in.sin_port = htons(PORT);
 
     sendto(sockfd, data.c_str(), data.size(), 0, (struct sockaddr*)&sock_in,sizeof(sock_in));
 

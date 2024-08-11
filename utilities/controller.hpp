@@ -20,7 +20,7 @@ class StateController{
 
     void insert_observer(std::shared_ptr<Observer> observer);
     void stop_all_observers();
-    static void catch_sigint(int signum);
+    static void sig_handler(int signum);
 
     inline static StateController *instance;
 };

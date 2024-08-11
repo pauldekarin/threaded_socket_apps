@@ -39,8 +39,13 @@ $(OBJS_DIR)/%.o : ./src/%.cpp
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+.PHONY:run
 run:
 	$(BUILD_DIR)/$(OUTPUT)
+
+.PHONY:rebuild
+rebuild:clean build
+
 
 .PHONY:clean
 clean:

@@ -6,11 +6,13 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string>
+#include <cstring>
 #include <unistd.h>
+#include <thread>
+#include <chrono>
 #include "../utilities/logger.hpp"
 #include "../utilities/observer.hpp"
-
-#define BUFFER_SIZE 1024
+#include "../utilities/globals.hpp"
 
 class Listener : public Observer{
     int sockfd;
@@ -18,7 +20,7 @@ class Listener : public Observer{
 
     bool read_data(std::string &data);
     bool is_running {true};
-    
+
     bool create_socket();
     bool bind_socket();
 public:

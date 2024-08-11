@@ -10,24 +10,38 @@ Listener::~Listener(){
 void Listener::stop(){
     if(!this->is_running) return;
     this->is_running = false;
+    close(this->sockfd);
 }
 
 bool Listener::create_socket(){
     if((this->sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0){
-        logger::cout("LISTENER","socket() error");
+        return false;
+    }
+    int opt = 1;
+    if(setsockopt(this->sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0){
+
         return false;
     }
     return true;
 }
 bool Listener::bind_socket(){
-    bzero(&sock_in, sizeof(sock_in));
-    
+    std::memset(&sock_in, 0, sizeof(sock_in));
+
     sock_in.sin_addr.s_addr = inet_addr("127.0.0.1");
     sock_in.sin_family = AF_INET;
-    sock_in.sin_port = htons(8080);
+    sock_in.sin_port = htons(PORT);
     
-    if(bind(sockfd, (struct sockaddr*)&sock_in, sizeof(sock_in)) < 0){
-        return false;
+    while(bind(sockfd, (struct sockaddr*)&sock_in, sizeof(sock_in)) < 0 && this->is_running){
+        close(this->sockfd);
+        if(errno == EADDRINUSE){
+            logger::cout("LISTENER", "port in use, wait it to be freed or change PORT in file '/utilities/globals.hpp'");
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            if(!this->create_socket()){
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
     return true;
 }

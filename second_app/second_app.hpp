@@ -13,10 +13,10 @@
 #include "../utilities/controller.hpp"
 #include "../utilities/observer.hpp"
 #include "../utilities/logger.hpp"
+#include "../utilities/globals.hpp"
 #include "listener.hpp"
 #include "writer.hpp"
 
-#define BUFFER_SIZE 1024
 
 class SecondApp : public Observer, public std::enable_shared_from_this<SecondApp>{
     std::shared_ptr<Listener> listener;

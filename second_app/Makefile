@@ -41,7 +41,10 @@ $(OBJS_DIR)/%.o: ./src/%.cpp
 .PHONY: run
 run:
 	$(BUILD_DIR)/$(OUTPUT)
-	
+
+.PHONY:rebuild
+rebuild:clean build
+
 .PHONY: clean
 clean:
 	rm -rf $(BUILD_DIR)

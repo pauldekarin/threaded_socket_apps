@@ -4,7 +4,8 @@ StateController::StateController(){
     if(this->instance == nullptr){
         this->instance = this;
     }   
-    std::signal(SIGINT, StateController::catch_sigint);
+    std::signal(SIGINT, StateController::sig_handler);
+    std::signal(SIGTSTP, StateController::sig_handler);
 }
 
 StateController::~StateController(){
@@ -25,7 +26,7 @@ void StateController::insert_observer(std::shared_ptr<Observer> observer){
     this->observers.push_back(observer);
 }
 
-void StateController::catch_sigint(int signum){
-    logger::cout("STATE CONTROLLER","catch Ctrl + C");
+void StateController::sig_handler(int signum){
+    logger::cout("STATE CONTROLLER","catched user interruption");
     instance->stop_all_observers();
 }
