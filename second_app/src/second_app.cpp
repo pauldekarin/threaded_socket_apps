@@ -9,8 +9,6 @@ SecondApp::SecondApp():
 }
 
 void SecondApp::init(){
-    this->listener->bind_socket();  
-    
     this->controller.insert_observer(shared_from_this());
     this->controller.insert_observer(listener);
 }

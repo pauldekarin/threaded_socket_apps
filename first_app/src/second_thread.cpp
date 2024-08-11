@@ -29,7 +29,7 @@ void SecondThread::send_to_second_app(int sum){
 
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     struct sockaddr_in sock_in;
-    sock_in.sin_addr.s_addr = INADDR_ANY;
+    sock_in.sin_addr.s_addr = inet_addr("127.0.0.1");
     sock_in.sin_family = AF_INET;
     sock_in.sin_port = htons(8080);
 
